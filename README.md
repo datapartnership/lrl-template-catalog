@@ -1,6 +1,6 @@
-# Language Data Catalog template
+# Language Data Trust website template
 
-A static, no-build website for a licensed language data catalog. It lets people browse collections and see a few sample files, explains how access works for researchers and commercial subscribers, and documents the API. The data itself is delivered through the API, not from this site. It is plain HTML, CSS and JavaScript, so it can be hosted anywhere, including GitHub Pages.
+The Trust front end template is a static, no-build website for a licensed language data catalog. It lets people browse collections and see a few sample files, explains how access works for researchers and commercial subscribers, and documents the API. The data itself is delivered through the API, not from this site. It is plain HTML, CSS and JavaScript, so it can be hosted anywhere, including GitHub Pages.
 
 It is based on the [lrl-catalog](https://github.com/datapartnership/lrl-catalog) prototype, with a new serif design and a front end that reads from the catalog API instead of CSV files.
 

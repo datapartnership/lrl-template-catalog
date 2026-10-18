@@ -1,12 +1,12 @@
 /*
- * Catalog template configuration.
+ * Trust front end template configuration.
  * Edit this file to point the template at your catalog API and to brand it.
  * Nothing else needs to change for a standard deployment.
  */
 window.CATALOG_CONFIG = {
   // ── Branding ─────────────────────────────────────────────
-  siteTitle: "Language Data Catalog",
-  tagline: "Licensed text and audio collections for building language technology",
+  siteTitle: "Language Data Trust - Website Template",
+  tagline: "Licensed text and audio collections for AI models and applications in underrepresented languages.",
   intro:
     "A catalog of licensed datasets for researchers and commercial subscribers. " +
     "Browse what is available, read how access works, and apply for the data you need.",
