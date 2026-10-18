@@ -1,0 +1,64 @@
+<h2 id="h-access">How to get access</h2>
+<p class="lede">Anyone can browse the catalog. Getting the data itself requires approval, and the terms depend on who you are.</p>
+
+<ol class="steps">
+  <li><strong>Apply.</strong> Choose the application for your group.</li>
+  <li><strong>Wait for approval.</strong> A person reviews each application.</li>
+  <li><strong>Get a token.</strong> Once approved, sign in to get an access token for the API.</li>
+  <li><strong>Use the data.</strong> Request files and bundles through the API.</li>
+</ol>
+
+<div class="two-up">
+  <article class="aside-card">
+    <h3>Researchers</h3>
+    <p>Researchers, academic institutions, and organizations working on AI for social good can apply for access.</p>
+    <ul>
+      <li>Submit a research proposal.</li>
+      <li>Demonstrate ethical data handling practices.</li>
+      <li>Commit to open-source publication of derived insights and models.</li>
+    </ul>
+    <p>Applications that show potential for significant impact on development challenges are prioritized. They are reviewed on a rolling basis, and the typical response time is 2&ndash;3 weeks.</p>
+    <p><a class="btn" id="apply-researcher" href="#access">Apply as a researcher</a></p>
+  </article>
+  <article class="aside-card">
+    <h3>Commercial subscribers</h3>
+    <p>Organizations that want to use the data in commercial products or services.</p>
+    <ul>
+      <li>Agree to commercial terms.</li>
+      <li>Use a separate application form.</li>
+      <li>Larger daily download limits.</li>
+    </ul>
+    <p>The commercial terms are set out in the legal documents.</p>
+    <p><a class="btn" id="apply-subscriber" href="#access">Apply as a subscriber</a></p>
+  </article>
+</div>
+
+<form class="apply-form" id="apply-form" hidden aria-labelledby="h-apply">
+  <h3 id="h-apply">Researcher application</h3>
+  <div class="form-grid">
+    <label class="field"><span>First name</span><input name="firstName" required /></label>
+    <label class="field"><span>Last name</span><input name="lastName" required /></label>
+    <label class="field"><span>Organization</span><input name="organization" required /></label>
+    <label class="field"><span>Organization email</span><input type="email" name="organizationEmail" required /></label>
+    <label class="field"><span>Job title</span><input name="jobTitle" required /></label>
+    <label class="field field-wide"><span>Project description</span><textarea name="projectDescription" rows="4" required></textarea></label>
+    <label class="field field-wide"><span>Ethical data handling</span>
+      <textarea name="ethicalDataHandling" rows="3" required placeholder="How will you protect people and communities represented in the data?"></textarea></label>
+  </div>
+  <label class="check"><input type="checkbox" name="openSourceCommitment" required />
+    I commit to open-source publication of derived insights and models.</label>
+  <p><button class="btn" type="submit">Submit application</button>
+    <span class="form-status" id="apply-status" role="status" aria-live="polite"></span></p>
+</form>
+
+<h3>What you receive</h3>
+<p>Data is delivered with protections that keep the original publications safe while staying useful for building models.</p>
+<ul class="plain">
+  <li><strong>Text</strong> arrives as shuffled paragraphs rather than whole documents.</li>
+  <li><strong>Audio and video</strong> arrive paired with their transcriptions, singly or as bundles.</li>
+  <li><strong>Daily limits</strong> apply to text downloads. Commercial subscribers have larger limits.</li>
+</ul>
+
+<h3>Legal documents</h3>
+<p>The legal documents are the source of truth for the terms. This page only summarizes them. See also the <a href="#license">license and terms</a> page.</p>
+<ul class="plain legal-docs"></ul>

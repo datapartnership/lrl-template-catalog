@@ -1,0 +1,282 @@
+{
+  "@context": [
+    "https://mlcommons.org/working-groups/data/croissant/",
+    {
+      "sc": "https://schema.org/",
+      "dct": "http://purl.org/dc/terms/",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dqv": "http://www.w3.org/ns/dqv#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "ebucore": "https://tech-metadata.ebu-it-tools.ch/ontologies/ebucore/",
+      "cr": "http://mlcommons.org/croissant/",
+      "ddpv": "https://datapartnership.org/ddpv-metadata-terms",
+      "rai": "http://mlcommons.org/croissant/RAI/",
+      "olac": "http://www.language-archives.org/OLAC/1.1/",
+      "ddi": "https://ddialliance.org/ddi-codebook#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+    }
+  ],
+  "@type": "sc:Dataset",
+  "dct:conformsTo": [
+    "http://mlcommons.org/croissant/1.0",
+    "http://mlcommons.org/croissant/RAI/1.0"
+  ],
+  "sc:identifier": "ddp-audio-20260225",
+  "sc:name": "Capital FM News Bulletins",
+  "dct:alternative": "Nkhani za mu 2025",
+  "sc:description": "A collection of Chichewa-language news bulletin recordings from Capital FM Malawi, covering weekday broadcasts throughout 2025. Compiled for low-resource language technology research under a controlled data-sharing agreement with the Development Data Partnership.",
+  "sc:url": "https://example.org/dataset/audio",
+  "sc:version": "1.0.0",
+  "cr:isLiveDataset": false,
+  "olac:subjectLanguage": {
+    "name": "Chichewa",
+    "code": "ny"
+  },
+  "olac:linguisticType": "primary_text",
+  "olac:discourseType": "news broadcast",
+  "sc:keywords": [
+    "audio",
+    "low-resource-language",
+    "Chichewa",
+    "Malawi",
+    "news",
+    "speech"
+  ],
+  "sc:datePublished": "2026-02-25",
+  "sc:inLanguage": {
+    "@type": "sc:Language",
+    "name": "English",
+    "identifier": "en"
+  },
+  "sc:dateCreated": "2026-02-25",
+  "sc:dateModified": "2026-02-25T16:00:05.519206Z",
+  "sc:temporalCoverage": "2025-01-01/2025-12-31",
+  "sc:spatialCoverage": "Malawi",
+  "sc:creator": {
+    "@type": "sc:Organization",
+    "sc:name": "Capital FM"
+  },
+  "sc:provider": {
+    "@type": "sc:Organization",
+    "sc:name": "Development Data Partnership"
+  },
+  "sc:sourceOrganization": {
+    "@type": "sc:Organization",
+    "sc:name": "Capital FM"
+  },
+  "sc:contributor": [
+    "Development Data Partnership Data Team"
+  ],
+  "sc:contactPoint": [
+    {
+      "@type": "sc:ContactPoint",
+      "sc:name": "DDP Data Access",
+      "sc:email": "data@datapartnership.org",
+      "sc:url": "https://datapartnership.org/contact"
+    }
+  ],
+  "cr:citeAs": "Development Data Partnership (2026). Capital FM Weekday News Bulletins 2025. Derived media content dataset.",
+  "sc:license": "LicenseRef-Proprietary",
+  "sc:usageInfo": "Dataset provided for research and demonstration purposes only. Non-commercial use only.",
+  "sc:conditionsOfAccess": "Access subject to approval by the provider; full source files are not distributed.",
+  "sc:audience": [
+    "NLP Researchers",
+    "Low-resource language technologists",
+    "Speech processing engineers"
+  ],
+  "dcat:theme": [
+    "Social Conditions and Equity",
+    "Industry"
+  ],
+  "dcat:themeTaxonomy": "https://vocabularyserver.com/unbis/en/index.php",
+  "ddpv:piiScreening": true,
+  "ddpv:piiScreeningMethod": [
+    "manual_review",
+    "audio_redaction"
+  ],
+  "ddpv:piiNotes": "Content reviewed at source level; dataset consists of news media content intended for public broadcast. Speech anonymization applied to any incidentally captured private speech. No intentional inclusion of private personal data.",
+  "ddpv:sensitiveContent": false,
+  "ddpv:attribution": true,
+  "ddpv:thirdPartyRestrictions": "Use restricted to research and non-commercial purposes as agreed with content partners.",
+  "ddpv:retentionPolicy": "Source files retained internally by provider; only derived text/audio segments are served via API.",
+  "rai:dataCollection": "Content sourced from Capital FM Malawi as part of a controlled data-sharing agreement for language technology research under the Development Data Partnership.",
+  "rai:dataCollectionType": "Manual Human Curation",
+  "rai:dataCollectionRawData": "Partner-provided broadcast media archives from Capital FM Malawi.",
+  "rai:dataCollectionTimeFrameStart": "2024-01-01",
+  "rai:dataCollectionTimeFrameEnd": "2025-12-31",
+  "rai:dataUseCases": [
+    "Language technology research for Chichewa and related Bantu languages",
+    "Low-resource language model development and benchmarking",
+    "Speech and text processing evaluation for African languages"
+  ],
+  "rai:dataBiases": "Content reflects editorial priorities and coverage patterns of Capital FM and may underrepresent informal speech, rural dialects, and non-news discourse genres.",
+  "rai:dataLimitations": "Dataset is not exhaustive and does not represent all Chichewa dialects, regions, or socio-economic groups equally. Audio quality varies by recording conditions and broadcast equipment.",
+  "rai:dataSocialImpact": "Improved representation of Chichewa and Malawian languages in language technologies, supporting more equitable access to AI tools for Malawian communities.",
+  "rai:dataReleaseMaintenancePlan": "A static dataset release is planned; no ongoing updates are scheduled. Version increments will be issued only if significant corrections are required.",
+  "rai:dataAnnotationProtocol": "No manual linguistic annotation applied to this release; content is provided as raw or lightly processed audio segments. Future releases may include transcriptions and speaker annotations.",
+  "rai:dataAnnotationPlatform": "Chambo",
+  "rai:dataAnnotationAnalysis": "No inter-rater reliability analysis applicable to this release as no manual annotations were produced. Quality control applied at the audio processing stage via automated SNR and loudness checks.",
+  "rai:annotationsPerItem": "0 (unannotated release)",
+  "rai:dataPreprocessingProtocol": [
+    "Audio segmentation into broadcast-unit chunks",
+    "Speech anonymization applied to incidental private speech",
+    "Content chunking to prevent reconstruction of full broadcasts"
+  ],
+  "rai:dataManipulationProtocol": "Source files are segmented into smaller units to prevent reconstruction of full articles or broadcasts. No pitch shifting, speed modification, or synthetic augmentation applied.",
+  "dqv:hasQualityMeasurement": [
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ddpv:NumFiles",
+      "dqv:value": 2.0,
+      "schema:unitText": "count",
+      "schema:description": "Total number of audio files discovered in the input folder.",
+      "ddpv:aggregationType": "count"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ebucore:duration",
+      "dqv:value": 863.2234467120181,
+      "schema:unitText": "seconds",
+      "schema:description": "Total duration across all audio files.",
+      "ddpv:aggregationType": "sum"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ebucore:sampleRate",
+      "dqv:value": 44100.0,
+      "schema:unitText": "Hz",
+      "schema:description": "Mean sample rate across all files.",
+      "ddpv:aggregationType": "mean"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ebucore:bitrate",
+      "dqv:value": 82677.88831142167,
+      "schema:unitText": "bps",
+      "schema:description": "Duration-weighted mean bitrate (for PCM, bitrate is approximated from sample rate × bit depth × channels).",
+      "ddpv:aggregationType": "weighted_mean"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ebucore:loudnessLUFS",
+      "dqv:value": -14.153139629163295,
+      "schema:unitText": "LUFS",
+      "schema:description": "Duration-weighted mean integrated loudness (EBU R128) across files.",
+      "ddpv:aggregationType": "weighted_mean"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ebucore:signalToNoiseRatio",
+      "dqv:value": 23.89957610734123,
+      "schema:unitText": "dB",
+      "schema:description": "Duration-weighted mean SNR estimate based on low-RMS vs high-RMS frames.",
+      "ddpv:aggregationType": "weighted_mean"
+    },
+    {
+      "@type": "dqv:QualityMeasurement",
+      "dqv:isMeasurementOf": "ddpv:silenceToNoiseRatio",
+      "dqv:value": 0.13063511995740099,
+      "schema:unitText": "ratio",
+      "schema:description": "Mean proxy ratio of samples below a -40 dB threshold (higher means more silence-like audio).",
+      "ddpv:aggregationType": "mean"
+    }
+  ],
+  "sc:isReferencedBy": [
+    "https://example.org/reports/language-data-malawi-2026"
+  ],
+  "sc:mentions": [
+    "Low-resource language datasets",
+    "Malawi media archives",
+    "https://example.org/blogs/chichewa-nlp"
+  ],
+  "prov:qualifiedGeneration": {
+    "prov:activity": {
+      "@id": "https://datapartnership.org/workflows/media-ingest-chunking-v1",
+      "rdfs:label": "Media ingestion, review, and chunking workflow",
+      "sc:name": "DDP Media Chunking Pipeline"
+    },
+    "prov:used": [
+      "https://nationmalawi.com"
+    ]
+  },
+  "prov:wasDerivedFrom": "Partner-provided print and broadcast media archives",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "file-01",
+      "sc:name": "7PM NKHANI MWATSATANETSATANE 16 OCT ED 2025.mp3",
+      "sc:contentUrl": "file:///home/sagemaker-user/fm_audios/7PM%20NKHANI%20MWATSATANETSATANE%2016%20OCT%20ED%202025.mp3",
+      "sc:encodingFormat": "audio/mpeg",
+      "sc:contentSize": 5912974,
+      "sc:dateModified": "2026-02-25T15:58:27.521443Z",
+      "cr:sha256": "56d3e9fc35cdcd9738c7f94c46c7494c10f578be52ddd123f5df995390a1106a",
+      "ebucore:duration": 576.5691156462585,
+      "ebucore:sampleRate": 44100.0,
+      "ebucore:channels": 1,
+      "ebucore:bitrate": 82033.0,
+      "ebucore:integratedLoudness": -15.195070442175625,
+      "ebucore:signalToNoiseRatio": 28.008330347766552
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file-02",
+      "sc:name": "NEWS@3&7 PM 5 APRIL 2025.mp3",
+      "sc:contentUrl": "file:///home/sagemaker-user/fm_audios/NEWS%403%267%20PM%205%20APRIL%202025.mp3",
+      "sc:encodingFormat": "audio/mpeg",
+      "sc:contentSize": 3009789,
+      "sc:dateModified": "2026-02-25T15:58:27.241443Z",
+      "cr:sha256": "029635d06308a53a9de555c867f95c03afb9c5d421c27903cc9e1e6a655f8d6a",
+      "ebucore:duration": 286.65433106575966,
+      "ebucore:sampleRate": 44100.0,
+      "ebucore:channels": 1,
+      "ebucore:bitrate": 83975.0,
+      "ebucore:integratedLoudness": -12.057426910679045,
+      "ebucore:signalToNoiseRatio": 15.635333979890547
+    }
+  ],
+  "cr:recordSet": [
+    {
+      "cr:split": "other",
+      "cr:label": "audio_files",
+      "cr:records": [
+        {
+          "cr:content": "file:///home/sagemaker-user/fm_audios/7PM%20NKHANI%20MWATSATANETSATANE%2016%20OCT%20ED%202025.mp3",
+          "sc:encodingFormat": "audio/mpeg"
+        },
+        {
+          "cr:content": "file:///home/sagemaker-user/fm_audios/NEWS%403%267%20PM%205%20APRIL%202025.mp3",
+          "sc:encodingFormat": "audio/mpeg"
+        }
+      ],
+      "cr:key": {
+        "cr:name": "audio_url"
+      },
+      "cr:field": [
+        {
+          "cr:name": "audio_url",
+          "cr:dataType": "uri",
+          "cr:source": "sc:contentUrl",
+          "cr:equivalentProperty": "https://schema.org/contentUrl"
+        },
+        {
+          "cr:name": "duration_s",
+          "cr:dataType": "number",
+          "cr:source": "ebucore:duration",
+          "cr:equivalentProperty": "https://tech-metadata.ebu-it-tools.ch/ontologies/ebucore/ebucore#duration"
+        },
+        {
+          "cr:name": "sample_rate_hz",
+          "cr:dataType": "number",
+          "cr:source": "ebucore:sampleRate",
+          "cr:equivalentProperty": "https://tech-metadata.ebu-it-tools.ch/ontologies/ebucore/ebucore#sampleRate"
+        },
+        {
+          "cr:name": "channels",
+          "cr:dataType": "integer",
+          "cr:source": "ebucore:channels",
+          "cr:equivalentProperty": "https://tech-metadata.ebu-it-tools.ch/ontologies/ebucore/ebucore#channels"
+        }
+      ]
+    }
+  ]
+}

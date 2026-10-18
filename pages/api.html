@@ -1,0 +1,125 @@
+<h2 id="h-api">API reference</h2>
+<p class="lede">Once your access has been approved, this is the API you use to get the data.</p>
+
+<p>Base URL: <code data-api-base>https://api.example.org</code></p>
+<p>The API returns files and dataset metadata. Metadata comes back as <a href="https://mlcommons.org/working-groups/data/croissant/" target="_blank" rel="noopener">Croissant 1.0</a> JSON-LD, which machine learning tools can read directly.</p>
+<p class="note">You need approved access first. See <a href="#access">how to get access</a>.</p>
+
+<h3>Authentication</h3>
+<p>Every request for data carries an access token, sent as a bearer token:</p>
+<pre><code>Authorization: Bearer &lt;access token&gt;</code></pre>
+<p>Each deployment uses exactly one way of signing in: built-in accounts (<code>POST /api/auth/login</code> returns a token), Microsoft Entra ID, or Keycloak. <code>GET /api/auth/me</code> returns the signed-in user.</p>
+<p>A valid token is not enough on its own. The account must also be approved and active, so removing someone's access takes effect at once, even if their sign-in provider still issues tokens.</p>
+<p class="note">Never place a secret or token in a web page or a public repository.</p>
+
+<h3>Finding what to request</h3>
+<p>Browse the catalog on this site to choose a collection. Each collection page shows its ID and a few sample files. To list every file ID in a collection, call <code>GET /api/catalog/collections/{id}/files</code>, which needs no sign-in. File IDs also appear as <code>@id</code> in query results.</p>
+
+<h3>Endpoints</h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Endpoint</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>GET /api/collections/query</code></td><td>A random sample of files, with their metadata, as Croissant JSON-LD</td></tr>
+    <tr><td><code>GET /api/files/{id}</code></td><td>One file. Text is delivered as shuffled paragraphs.</td></tr>
+    <tr><td><code>GET /api/files/{id}/bundle</code></td><td>ZIP of an audio or video file and its transcription</td></tr>
+    <tr><td><code>GET /api/collections/{id}/bundle</code></td><td>ZIP of a whole audio or video collection</td></tr>
+    <tr><td><code>POST /api/auth/login</code></td><td>Sign in with a built-in account and receive a token (only where the deployment uses built-in accounts)</td></tr>
+    <tr><td><code>GET /api/auth/me</code></td><td>Check who the token belongs to</td></tr>
+  </tbody>
+</table></div>
+<p class="note">All of these need a token except <code>POST /api/auth/login</code>. The endpoints this website uses to browse the catalog are not covered here.</p>
+
+<h3>Querying a sample as Croissant</h3>
+<p><code>GET /api/collections/query</code> returns a random <strong>sample</strong> of files, not a full listing, so it cannot be used to list everything.</p>
+<ul class="plain">
+  <li>Filters are optional and can be combined. They include media type, collection, provider, language, and keyword or theme.</li>
+  <li><code>limit</code> sets how many files to return. The default is <strong>30</strong> and the maximum is <strong>100</strong>.</li>
+  <li>With no filters, the API returns a random 80% of all files.</li>
+  <li>Each audio or video entry includes its paired transcription.</li>
+</ul>
+<p>The response is a Croissant 1.0 JSON-LD document with one <code>sc:Dataset</code> entry per collection inside <code>@graph</code>. Each carries:</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Level</th><th>What it carries</th></tr></thead>
+  <tbody>
+    <tr><td>Collection</td><td>License (<code>sc:license</code>), creator and publisher, temporal coverage, language, screening flags (<code>ddpv:piiScreening</code>, <code>ddpv:sensitiveContent</code>), and data quality measurements (<code>dqv:hasQualityMeasurement</code>)</td></tr>
+    <tr><td>Text files</td><td>Word, character, token and page counts, a checksum (<code>cr:sha256</code>), and the keywords, themes and author added during tagging</td></tr>
+    <tr><td>Audio and video files</td><td>Technical metadata such as duration, sample rate, channels and loudness (<code>ebucore:*</code>), a checksum (<code>cr:sha256</code>), the paired transcription, and keywords and themes</td></tr>
+  </tbody>
+</table></div>
+<p>An outline of the shape, with most properties left out:</p>
+<pre><code>{
+  "@context": [ "https://mlcommons.org/working-groups/data/croissant/", { "sc": "...", "cr": "...", "ddpv": "...", "dqv": "...", "ebucore": "..." } ],
+  "@graph": [
+    {
+      "@type": "sc:Dataset",
+      "sc:name": "Example collection",
+      "sc:license": "...",
+      "ddpv:piiScreening": true,
+      "ddpv:sensitiveContent": false,
+      "dqv:hasQualityMeasurement": [ ... ],
+      "distribution": [
+        {
+          "@type": "cr:FileObject",
+          "@id": "file-01",
+          "sc:name": "bulletin-001.mp3",
+          "sc:encodingFormat": "audio/mpeg",
+          "cr:sha256": "...",
+          "ebucore:duration": 576.6,
+          "ebucore:sampleRate": 44100
+        }
+      ]
+    }
+  ]
+}</code></pre>
+<p class="note">This outline follows the example audio record on the <a href="#metadata">Metadata</a> page. The Metadata page links the full schemas, which list every property. Check a real response for the exact nesting of transcriptions and text files.</p>
+
+<h3>How files are delivered</h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Kind</th><th>What you get</th></tr></thead>
+  <tbody>
+    <tr><td>Text</td><td>Plain text made of the file's paragraphs in random order. Never the intact document. Text cannot be bundled into a ZIP.</td></tr>
+    <tr><td>Audio and video</td><td>The file as it is, with support for partial (range) requests so players can seek, or a ZIP bundle.</td></tr>
+    <tr><td>Bundles</td><td>A ZIP with each media file and its transcription, a <code>metadata.jsonld</code> file, and a <code>MISSING_FILES.txt</code> note listing anything that could not be included.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Limits</h3>
+<ul class="plain">
+  <li>Each user has a <strong>daily limit on text downloads</strong>, counted per UTC day. Failed requests do not use up the limit. Commercial subscribers have larger limits.</li>
+  <li>Queries return samples, as described above.</li>
+  <li>Downloads are logged for auditing.</li>
+</ul>
+
+<h3>Errors</h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>400</code></td><td>The request was not valid, for example asking for a ZIP of a text collection</td></tr>
+    <tr><td><code>401</code></td><td>Not signed in, or the token has expired</td></tr>
+    <tr><td><code>403</code></td><td>Signed in, but access has not been approved or the account is inactive</td></tr>
+    <tr><td><code>404</code></td><td>Collection or file not found</td></tr>
+    <tr><td><code>422</code></td><td>The file could not be read, for example an encrypted PDF</td></tr>
+    <tr><td><code>429</code></td><td>Daily download limit reached. The response includes <code>limit</code> and <code>used</code>.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Examples</h3>
+<p>List the files in a collection, to find their IDs (no sign-in needed):</p>
+<pre><code>curl "<span data-api-base>https://api.example.org</span>/api/catalog/collections/COLLECTION_ID/files"</code></pre>
+<p>Get a random sample of 10 files about health, as Croissant JSON-LD:</p>
+<pre><code>curl -H "Authorization: Bearer $TOKEN" \
+  "<span data-api-base>https://api.example.org</span>/api/collections/query?theme=Health&amp;limit=10"</code></pre>
+<p>Download a text file as shuffled paragraphs:</p>
+<pre><code>curl -H "Authorization: Bearer $TOKEN" \
+  "<span data-api-base>https://api.example.org</span>/api/files/FILE_ID"</code></pre>
+<p>Download an audio collection as a ZIP:</p>
+<pre><code>curl -H "Authorization: Bearer $TOKEN" -o collection.zip \
+  "<span data-api-base>https://api.example.org</span>/api/collections/COLLECTION_ID/bundle"</code></pre>
+<p>Handle the daily limit from JavaScript:</p>
+<pre><code>const res = await fetch(`${API_BASE}/api/files/${id}`, {
+  headers: { Authorization: `Bearer ${token}` }
+});
+if (res.status === 429) {
+  const { limit, used } = await res.json();   // daily limit reached
+}</code></pre>
+<p class="note">If your API publishes a Swagger page, it is the authoritative list of parameters and response fields.</p>

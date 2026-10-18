@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Language Data Catalog</title>
+  <meta name="description" content="A catalog of licensed language datasets for researchers and commercial subscribers." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-row">
+      <a class="org" id="org-link" href="#browse"><span id="org-name">Your Organization</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav" id="nav">
+          <li><a href="#browse" data-tab="browse">Browse</a></li>
+          <li><a href="#providers" data-tab="providers">Providers</a></li>
+          <li><a href="#access" data-tab="access">Access</a></li>
+          <li><a href="#license" data-tab="license">License</a></li>
+          <li><a href="#api" data-tab="api">API</a></li>
+          <li><a href="#metadata" data-tab="metadata">Metadata</a></li>
+          <li><a href="#about" data-tab="about">About</a></li>
+        </ul>
+      </nav>
+      <div class="account">
+        <button type="button" class="btn btn-small" id="signin-btn" hidden>Sign in</button>
+        <span class="user-chip" id="user-chip" hidden>Signed in
+          <button type="button" class="link-button" id="signout-btn">Sign out</button></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner banner-alert" id="site-notice" role="alert" hidden>
+    <div class="wrap" id="site-notice-text"></div>
+  </div>
+
+  <div class="banner" id="sample-banner" role="note" hidden>
+    <div class="wrap">You are viewing <strong>sample data</strong>. Set <code>apiBaseUrl</code> in
+      <code>js/config.js</code> to connect the catalog to your API.</div>
+  </div>
+
+  <section class="hero" aria-labelledby="site-title">
+    <div class="wrap">
+      <p class="kicker">Data catalog</p>
+      <h1 id="site-title">Language Data Catalog</h1>
+      <p class="tagline" id="site-tagline"></p>
+      <p class="intro" id="site-intro"></p>
+      <div class="cta-row">
+        <a class="btn" href="#browse">Browse collections</a>
+        <a class="btn btn-ghost" href="#access">How to get access</a>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabs-bar" id="tabs-bar" aria-label="Sections">
+    <div class="wrap tabs-bar-inner">
+      <a href="#browse" data-tab="browse">Browse Collections</a>
+      <a href="#providers" data-tab="providers">Data Providers</a>
+      <a href="#access" data-tab="access">Access</a>
+      <a href="#license" data-tab="license">License</a>
+      <a href="#api" data-tab="api">API Reference</a>
+      <a href="#metadata" data-tab="metadata">Metadata</a>
+      <a href="#about" data-tab="about">About</a>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap" tabindex="-1">
+
+    <!-- ───────── Browse ───────── -->
+    <section class="panel" id="panel-browse" aria-labelledby="h-browse">
+      <h2 id="h-browse">Browse collections</h2>
+      <form class="filters" id="filters" role="search" aria-label="Filter collections">
+        <label class="field field-search"><span>Search</span>
+          <input type="search" id="f-search" placeholder="Title or description" autocomplete="off" /></label>
+        <label class="field"><span>Language</span><select id="f-language"><option value="">All</option></select></label>
+        <label class="field"><span>Media type</span><select id="f-mediaType"><option value="">All</option></select></label>
+        <label class="field"><span>Provider</span><select id="f-provider"><option value="">All</option></select></label>
+        <label class="field"><span>Theme</span><select id="f-theme"><option value="">All</option></select></label>
+        <button type="reset" class="link-button" id="f-reset">Clear filters</button>
+      </form>
+      <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+      <div class="entries" id="entries"></div>
+      <nav class="pagination" id="pagination" aria-label="Pages"></nav>
+    </section>
+
+    <!-- ───────── Providers ───────── -->
+    <section class="panel" id="panel-providers" aria-labelledby="h-providers" hidden>
+      <h2 id="h-providers">Data providers</h2>
+      <p class="lede">The organizations that contribute content to the catalog, grouped by type. Open a provider to see its collections.</p>
+      <div class="providers-layout">
+        <nav class="providers-sidenav" id="providers-sidenav" aria-label="Provider types"></nav>
+        <div class="providers-content" id="providers-list"></div>
+      </div>
+    </section>
+
+    <!-- Content pages are loaded from /pages. Edit those files to change the wording. -->
+    <section class="panel" id="panel-access" data-page="pages/access.html" hidden aria-label="How to get access"></section>
+    <section class="panel" id="panel-license" data-page="pages/license.html" hidden aria-label="License and terms"></section>
+    <section class="panel" id="panel-api" data-page="pages/api.html" hidden aria-label="API reference"></section>
+    <section class="panel" id="panel-metadata" data-page="pages/metadata.html" hidden aria-label="Metadata schemas"></section>
+    <section class="panel" id="panel-about" data-page="pages/about.html" hidden aria-label="About this catalog"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="footer-text">&copy; Your Organization</p>
+    </div>
+  </footer>
+
+  <!-- ───────── Collection detail ───────── -->
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div class="dialog-head">
+      <h2 id="detail-title"></h2>
+      <button type="button" class="link-button" id="detail-close" aria-label="Close">Close</button>
+    </div>
+    <p class="meta" id="detail-meta"></p>
+    <p id="detail-desc"></p>
+    <dl class="facts" id="detail-facts"></dl>
+    <h3 id="sample-heading">Sample files</h3>
+    <p class="note" id="sample-note"></p>
+    <ul class="file-list" id="file-list"></ul>
+
+    <h3>Get this collection through the API</h3>
+    <p>The data is delivered through the API, not from this page. Use calls like these:</p>
+    <pre><code id="api-snippet"></code></pre>
+    <p class="note"><a href="#api" id="detail-api-link">See the API reference</a></p>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

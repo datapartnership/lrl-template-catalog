@@ -1,0 +1,33 @@
+<h2 id="h-metadata">Metadata schemas</h2>
+<p class="lede">Every dataset in the catalog is described with structured metadata, so it is easy to find and reuse for training and fine-tuning models.</p>
+
+<h3>Four goals</h3>
+<div class="card-grid">
+  <article class="mini-card"><h4>Discoverability</h4><p>Making datasets easy to find and correctly identify.</p></article>
+  <article class="mini-card"><h4>Usability</h4><p>Giving clear information so users can assess and work with datasets effectively.</p></article>
+  <article class="mini-card"><h4>Reproducibility</h4><p>Documenting processes so results can be verified and reused.</p></article>
+  <article class="mini-card"><h4>Ethical practice</h4><p>Documenting provenance, licensing and ethical safeguards openly.</p></article>
+</div>
+
+<h3>An application profile</h3>
+<p>No single existing standard met every requirement, so the metadata combines fields from several standards. It also uses a custom vocabulary for program-specific attributes, while staying compatible with existing tools.</p>
+
+<h3>Standards used</h3>
+<ul class="chips chips-wide">
+  <li>Croissant</li><li>Schema.org Dataset</li><li>Dublin Core Terms</li><li>DCAT</li><li>Data Quality Vocabulary (DQV)</li>
+  <li>PROV-O</li><li>RDF Schema</li><li>EBUCore</li><li>OLAC</li><li>BIBO</li><li>DDI</li><li>DDPV (custom vocabulary)</li>
+</ul>
+
+<h3>Schemas by data type</h3>
+<p>There are metadata schemas for three kinds of data: audio, text and video. Most fields are the same. The main difference is the technical fields each type needs, such as duration and sample rate for audio, and word counts for text. The full documentation lists every field, its definition, how often it must appear, and how it is collected.</p>
+
+<h3>Resources and downloads</h3>
+<ul class="resource-list">
+  <li><a href="metadata-docs/Metadata_Schemas.pdf"><strong>Full documentation</strong></a><span>The metadata schemas and the process used to develop them. PDF.</span></li>
+  <li><a href="https://datapartnership.org/ddpv-metadata-terms/" target="_blank" rel="noopener"><strong>DDPV vocabulary</strong></a><span>A web page describing the custom metadata vocabulary. Web.</span></li>
+  <li><a href="metadata-docs/llm_library_text_schema.json"><strong>Text metadata schema</strong></a><span>JSON schema for text and news datasets. JSON-LD.</span></li>
+  <li><a href="metadata-docs/llm_library_audio_schema.json"><strong>Audio metadata schema</strong></a><span>JSON schema for audio and broadcast datasets. JSON-LD.</span></li>
+  <li><a href="metadata-docs/llm_library_video_schema.json"><strong>Video metadata schema</strong></a><span>JSON schema for video datasets. JSON-LD.</span></li>
+  <li><a href="metadata-docs/capital_fm_news.jsonld"><strong>Example audio record</strong></a><span>A populated example metadata record for an audio dataset. JSON-LD.</span></li>
+</ul>
+<p class="note">The catalog API returns this metadata as Croissant 1.0 JSON-LD. See the <a href="#api">API reference</a>.</p>

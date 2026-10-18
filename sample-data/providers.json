@@ -1,0 +1,26 @@
+[
+  {
+    "id": "harbor-radio",
+    "name": "Harbor Radio Network",
+    "type": "Broadcaster, radio",
+    "description": "A regional radio network broadcasting news, health programs and call-in shows in several languages."
+  },
+  {
+    "id": "daily-courier",
+    "name": "The Daily Courier",
+    "type": "Print and digital media",
+    "description": "A national newspaper with an archive of news, features and opinion pieces."
+  },
+  {
+    "id": "national-statistics",
+    "name": "National Statistics Office",
+    "type": "Government institution",
+    "description": "Produces household surveys and census documentation, including audio from phone and in-person interviews."
+  },
+  {
+    "id": "valley-press",
+    "name": "Valley Press",
+    "type": "Publisher, books",
+    "description": "An independent publisher of literature, textbooks and community histories."
+  }
+]

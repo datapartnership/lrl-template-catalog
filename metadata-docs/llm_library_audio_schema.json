@@ -1,0 +1,2210 @@
+{
+  "$id": "https://developmentdatapartnership.org/schemas/llm-library-audio/v1.0/schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Development Data Partnership Audio Metadata Schema",
+  "description": "An audio metadata schema leveraging multiple standards for a low-resource language AI library.",
+  "type": "object",
+  "required": [
+    "@context",
+    "@type",
+    "sc:identifier",
+    "dct:conformsTo",
+    "sc:name",
+    "sc:description",
+    "sc:url",
+    "sc:version",
+    "olac:subjectLanguage",
+    "sc:keywords",
+    "sc:datePublished",
+    "sc:inLanguage",
+    "sc:dateCreated",
+    "sc:dateModified",
+    "sc:temporalCoverage",
+    "sc:spatialCoverage",
+    "sc:creator",
+    "sc:provider",
+    "sc:sourceOrganization",
+    "sc:license",
+    "ddpv:piiScreening",
+    "ddpv:sensitiveContent",
+    "distribution",
+    "cr:recordSet",
+    "cr:key",
+    "cr:field"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "array",
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "type": "string",
+          "const": "https://mlcommons.org/working-groups/data/croissant/"
+        },
+        {
+          "type": "object",
+          "required": [
+            "sc",
+            "dct",
+            "dqv",
+            "ebucore",
+            "cr",
+            "ddpv",
+            "olac",
+            "dcat",
+            "prov",
+            "rai"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "sc": {
+              "const": "https://schema.org/"
+            },
+            "dct": {
+              "const": "http://purl.org/dc/terms/"
+            },
+            "dcat": {
+              "const": "http://www.w3.org/ns/dcat#"
+            },
+            "dqv": {
+              "const": "http://www.w3.org/ns/dqv#"
+            },
+            "prov": {
+              "const": "http://www.w3.org/ns/prov#"
+            },
+            "ebucore": {
+              "const": "https://tech-metadata.ebu-it-tools.ch/ontologies/ebucore/"
+            },
+            "cr": {
+              "const": "http://mlcommons.org/croissant/"
+            },
+            "ddpv": {
+              "const": "https://datapartnership.org/ddpv-metadata-terms"
+            },
+            "rai": {
+              "const": "http://mlcommons.org/croissant/RAI/"
+            },
+            "olac": {
+              "const": "http://www.language-archives.org/OLAC/1.1/"
+            },
+            "ddi": {
+              "const": "https://ddialliance.org/ddi-codebook#"
+            },
+            "rdfs": {
+              "const": "http://www.w3.org/2000/01/rdf-schema#"
+            }
+          }
+        }
+      ],
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      }
+    },
+    "@type": {
+      "description": "Type of the top-level resource. Fixed to sc:Dataset.",
+      "const": "sc:Dataset"
+    },
+    "dct:conformsTo": {
+      "description": "Declares conformance to Croissant 1.0 specification. If using RAI properties, also include conformance to Croissant RAI 1.0.",
+      "oneOf": [
+        {
+          "title": "Croissant",
+          "const": "http://mlcommons.org/croissant/1.0"
+        },
+        {
+          "title": "Croissant and Responsible AI",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            "http://mlcommons.org/croissant/1.0",
+            "http://mlcommons.org/croissant/RAI/1.0"
+          ],
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "http://mlcommons.org/croissant/1.0",
+              "http://mlcommons.org/croissant/RAI/1.0"
+            ]
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "title": "Provenance",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "origin_description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "origin_description": {
+            "type": "object",
+            "required": [
+              "harvest_date",
+              "base_url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "harvest_date": {
+                "type": "string"
+              },
+              "altered": {
+                "type": "boolean"
+              },
+              "base_url": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "date_stamp": {
+                "type": "string"
+              },
+              "metadata_namespace": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "sc:identifier": {
+      "title": "Identifier",
+      "description": "Primary identifier for the dataset (e.g., internal ID or persistent handle).",
+      "type": "string",
+      "minLength": 1
+    },
+    "ddi:altID": {
+      "title": "Alternate Identifier(s)",
+      "description": "Identifiers other than the primary ID (e.g., secondary handle, legacy code, DOI string).",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ]
+    },
+    "sc:name": {
+      "title": "Name",
+      "description": "Dataset name (human-readable).",
+      "type": "string",
+      "pattern": ".*\\S.*",
+      "minLength": 3,
+      "maxLength": 200
+    },
+    "dct:alternative": {
+      "title": "Alternate Name",
+      "description": "Alternative or abbreviated dataset name.",
+      "type": "string",
+      "minLength": 2
+    },
+    "sc:description": {
+      "title": "Description",
+      "description": "Summary of the dataset contents and purpose.",
+      "type": "string",
+      "pattern": ".*\\S.*",
+      "minLength": 20,
+      "maxLength": 2000
+    },
+    "sc:url": {
+      "title": "Landing Page URL",
+      "description": "Landing page for the dataset (public URL).",
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "sc:version": {
+      "title": "Version",
+      "description": "Version label. Accepts SemVer (with optional 'v' prefix, 2–3 segments, pre-release/build) or Calendar Versioning (YYYY[-.|.]MM[[-.|.]DD] or YYYY).",
+      "type": "string",
+      "oneOf": [
+        {
+          "title": "SemVer (2–3 segments)",
+          "type": "string",
+          "pattern": "^v?(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+        },
+        {
+          "title": "Calendar version (YYYY, YYYY-MM, YYYY-MM-DD; '.' also allowed)",
+          "type": "string",
+          "pattern": "^(\\d{4}|\\d{4}[-.]?(0[1-9]|1[0-2])(?:[-.]?(0[1-9]|[12]\\d|3[01]))?)$"
+        }
+      ]
+    },
+    "sc:datePublished": {
+      "title": "Date Published",
+      "description": "Date when the dataset was first published.",
+      "oneOf": [
+        {
+          "title": "Date (YYYY-MM-DD)",
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "title": "Date-Time (ISO 8601)",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "sc:keywords": {
+      "title": "Keywords",
+      "description": "Keywords or tags associated with the dataset.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": ".*\\S.*",
+        "minLength": 1,
+        "maxLength": 50
+      }
+    },
+    "dcat:theme": {
+      "title": "Dataset Themes",
+      "description": "High-level categories or subjects describing the dataset. Use controlled vocabulary URIs where possible.",
+      "type": "array",
+      "minItems": 1,
+      "examples": [
+        [
+          "https://eurovoc.europa.eu/100141"
+        ],
+        [
+          "Education",
+          "Linguistics",
+          "Machine Learning"
+        ]
+      ],
+      "items": {
+        "oneOf": [
+          {
+            "description": "URI identifying a concept in a controlled vocabulary (e.g., EuroVoc, GEMET, OECD).",
+            "type": "string",
+            "format": "uri"
+          },
+          {
+            "description": "Free-text theme name if no URI is available.",
+            "type": "string",
+            "minLength": 1
+          }
+        ]
+      }
+    },
+    "dcat:themeTaxonomy": {
+      "title": "Theme Taxonomy",
+      "description": "URI of the controlled vocabulary or taxonomy defining the dataset themes (e.g., EuroVoc, GEMET, OECD Subject Vocabulary).",
+      "type": "string",
+      "format": "uri",
+      "examples": [
+        "https://eurovoc.europa.eu/",
+        "https://www.eionet.europa.eu/gemet/"
+      ]
+    },
+    "sc:dateCreated": {
+      "title": "Date Created",
+      "description": "Date when the dataset was created.",
+      "oneOf": [
+        {
+          "title": "Date (YYYY-MM-DD)",
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "title": "Date-Time (ISO 8601)",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "sc:dateModified": {
+      "title": "Date Modified",
+      "description": "Last modified timestamp for the dataset record.",
+      "oneOf": [
+        {
+          "title": "Date (YYYY-MM-DD)",
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "title": "Date-Time (ISO 8601)",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "cr:isLiveDataset": {
+      "title": "Is Live Dataset",
+      "description": "Whether the dataset is actively updated (true) or static (false).",
+      "type": "boolean",
+      "default": false
+    },
+    "cr:citeAs": {
+      "title": "Cite As",
+      "description": "Preferred citation for the dataset (URL, DOI, or formatted text).",
+      "oneOf": [
+        {
+          "title": "Citation URL",
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "title": "DOI",
+          "type": "string",
+          "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$"
+        },
+        {
+          "title": "Text Citation",
+          "type": "string"
+        }
+      ]
+    },
+    "sc:isBasedOn": {
+      "title": "Is Based On",
+      "description": "Sources or datasets this dataset is based on (links or note).",
+      "anyOf": [
+        {
+          "title": "Single URL",
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "title": "List of URLs",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        {
+          "title": "Text Note",
+          "type": "string",
+          "not": {
+            "format": "uri"
+          }
+        }
+      ]
+    },
+    "sc:audience": {
+      "title": "Intended Audience",
+      "description": "Intended audience or user group for the dataset.",
+      "oneOf": [
+        {
+          "title": "Single Audience",
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "title": "Multiple Audiences",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        {
+          "title": "Detailed Audience Details",
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:audienceType"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "description": "Type of object representing the intended audience.",
+              "const": "sc:Audience"
+            },
+            "sc:audienceType": {
+              "description": "Type of audience (e.g., 'Researchers', 'Developers', 'Students').",
+              "type": "string"
+            },
+            "sc:geographicArea": {
+              "description": "Geographic area or region of the intended audience.",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "olac:linguisticType": {
+      "title": "Linguistic Type",
+      "description": "Type of linguistic resource.",
+      "type": "string",
+      "enum": [
+        "primary_text",
+        "language_description",
+        "lexicon"
+      ]
+    },
+    "olac:discourseType": {
+      "title": "Discourse Type",
+      "description": "Genre or discourse style of the content (e.g., conversation, narrative, interview).",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        }
+      ]
+    },
+    "olac:subjectLanguage": {
+      "title": "Subject Language(s)",
+      "description": "Language(s) represented or studied in the dataset, using ISO 639-3 or BCP-47 codes.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "code"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 2
+            },
+            "code": {
+              "description": "Valid BCP-47 language tag (case-insensitive), e.g., 'ny', 'en-GB'.",
+              "type": "string",
+              "pattern": "^[A-Za-z]{2,3}(-[A-Za-z]{3}){0,3}(-[A-Za-z]{4})?(-([A-Za-z]{2}|\\d{3}))?(-([A-Za-z0-9]{5,8}|\\d[A-Za-z0-9]{3}))*(-[A-WYZa-wyz]\\d{3})?(-x(-[A-Za-z0-9]{1,8})+)?$",
+              "minLength": 2
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "code"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 2
+              },
+              "code": {
+                "type": "string",
+                "pattern": "^[a-zA-Z]{2,3}(-[A-Za-z0-9-]+)?$",
+                "minLength": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sc:inLanguage": {
+      "title": "Language(s)",
+      "description": "Language(s) used to describe or present the dataset, following BCP-47 tags.",
+      "oneOf": [
+        {
+          "title": "Single Language",
+          "type": "object",
+          "required": [
+            "name",
+            "identifier"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "title": "Type",
+              "enum": [
+                "sc:Language"
+              ]
+            },
+            "name": {
+              "title": "Language Name",
+              "type": "string",
+              "minLength": 2
+            },
+            "identifier": {
+              "title": "Language Tag",
+              "description": "Valid BCP-47 language tag (case-insensitive), e.g., 'en-GB', 'sw', 'ny', 'sw'.",
+              "type": "string",
+              "pattern": "^[A-Za-z]{2,3}(-[A-Za-z]{3}){0,3}(-[A-Za-z]{4})?(-([A-Za-z]{2}|\\d{3}))?(-([A-Za-z0-9]{5,8}|\\d[A-Za-z0-9]{3}))*(-[A-WYZa-wyz]\\d{3})?(-x(-[A-Za-z0-9]{1,8})+)?$"
+            }
+          }
+        },
+        {
+          "title": "List of Languages",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "identifier"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "@type": {
+                "title": "Type",
+                "enum": [
+                  "sc:Language"
+                ]
+              },
+              "name": {
+                "title": "Language Name",
+                "type": "string",
+                "minLength": 2
+              },
+              "identifier": {
+                "title": "Language Tag",
+                "description": "Valid BCP-47 language tag (case-insensitive), e.g. 'ny', 'sw'.",
+                "type": "string",
+                "pattern": "^[A-Za-z]{2,3}(-[A-Za-z]{3}){0,3}(-[A-Za-z]{4})?(-([A-Za-z]{2}|\\d{3}))?(-([A-Za-z0-9]{5,8}|\\d[A-Za-z0-9]{3}))*(-[A-WYZa-wyz]\\d{3})?(-x(-[A-Za-z0-9]{1,8})+)?$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sc:temporalCoverage": {
+      "title": "Temporal Coverage",
+      "description": "Time range covered (e.g., 2023-01-01/2023-01-31).",
+      "type": "string",
+      "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?(\\/?[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?)?$"
+    },
+    "sc:spatialCoverage": {
+      "title": "Spatial Coverage",
+      "description": "Spatial coverage of the dataset.",
+      "oneOf": [
+        {
+          "title": "Single Location",
+          "type": "string"
+        },
+        {
+          "title": "List of Locations",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "sc:creator": {
+      "title": "Creator",
+      "description": "Organisation/team or person(s) that created the dataset.",
+      "oneOf": [
+        {
+          "title": "Single Name",
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "title": "List of Names",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        {
+          "title": "Single Entity Object",
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "title": "Type",
+              "enum": [
+                "sc:Organization",
+                "sc:Person"
+              ]
+            },
+            "sc:name": {
+              "title": "Name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        },
+        {
+          "title": "List of Entity Objects",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "@type",
+              "sc:name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "@type": {
+                "title": "Type",
+                "enum": [
+                  "sc:Organization",
+                  "sc:Person"
+                ]
+              },
+              "sc:name": {
+                "title": "Name",
+                "type": "string",
+                "minLength": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sc:contributor": {
+      "title": "Contributor(s)",
+      "description": "People or organisations that contributed to the dataset.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "enum": [
+                "sc:Organization",
+                "sc:Person"
+              ]
+            },
+            "sc:name": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      ]
+    },
+    "sc:contactPoint": {
+      "title": "Contact Point(s)",
+      "description": "Contact details for enquiries or access requests.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "const": "sc:ContactPoint"
+          },
+          "sc:name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sc:email": {
+            "type": "string",
+            "format": "email"
+          },
+          "sc:telephone": {
+            "description": "Telephone number in E.164 format: '+' followed by 8–15 digits.",
+            "type": "string",
+            "pattern": "^\\+[1-9]\\d{7,14}$"
+          },
+          "sc:url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "sc:provider": {
+      "title": "Provider",
+      "description": "Organisation that provides or hosts the dataset.",
+      "oneOf": [
+        {
+          "title": "Single Name",
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "title": "List of Names",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        {
+          "title": "Entity Object",
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "title": "Type",
+              "enum": [
+                "sc:Organization"
+              ]
+            },
+            "sc:name": {
+              "title": "Name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      ]
+    },
+    "sc:funder": {
+      "title": "Funder",
+      "description": "Organisation or person providing financial support for the dataset.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      ]
+    },
+    "sc:sourceOrganization": {
+      "title": "Source Organisation",
+      "description": "Organisation that sourced or collected the data.",
+      "oneOf": [
+        {
+          "title": "Single Name",
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "title": "List of Names",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        {
+          "title": "Entity Object",
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "title": "Type",
+              "enum": [
+                "sc:Organization"
+              ]
+            },
+            "sc:name": {
+              "title": "Name",
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      ]
+    },
+    "sc:license": {
+      "title": "License",
+      "description": "Use an SPDX ID/expression, a LicenseRef for proprietary terms, or a license URL.",
+      "oneOf": [
+        {
+          "title": "SPDX ID or Expression",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-.+]+(?:\\s+(?:AND|OR|WITH)\\s+[A-Za-z0-9-.+]+)*$"
+        },
+        {
+          "title": "SPDX LicenseRef",
+          "type": "string",
+          "pattern": "^LicenseRef-[A-Za-z0-9._-]+$"
+        },
+        {
+          "title": "License URL",
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "sc:copyrightHolder": {
+      "title": "Copyright Holder",
+      "description": "Owner of copyright in the dataset.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "type": "object",
+          "required": [
+            "@type",
+            "sc:name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@type": {
+              "enum": [
+                "sc:Organization",
+                "sc:Person"
+              ]
+            },
+            "sc:name": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      ]
+    },
+    "sc:copyrightNotice": {
+      "title": "Copyright Notice",
+      "description": "Copyright statement (verbatim).",
+      "type": "string",
+      "minLength": 2
+    },
+    "sc:copyrightYear": {
+      "title": "Copyright Year",
+      "description": "Year of copyright claim.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1900
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        }
+      ]
+    },
+    "sc:usageInfo": {
+      "title": "Usage Information",
+      "description": "Permitted use details or link to usage guidelines.",
+      "oneOf": [
+        {
+          "title": "Text",
+          "type": "string",
+          "minLength": 5
+        },
+        {
+          "title": "URL",
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "sc:conditionsOfAccess": {
+      "title": "Conditions of Access",
+      "description": "Conditions or limitations for accessing this dataset.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ]
+    },
+    "ddpv:piiScreening": {
+      "title": "Contains PII",
+      "description": "Set true if any file contains personally identifiable information.",
+      "type": "boolean",
+      "default": false
+    },
+    "ddpv:piiScreeningMethod": {
+      "title": "PII Screening Method(s)",
+      "description": "Method(s) applied to remove/mask PII.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "manual_review",
+          "automated_ner",
+          "audio_redaction",
+          "hybrid",
+          "other"
+        ]
+      }
+    },
+    "ddpv:piiScreeningMethodOther": {
+      "title": "If 'other', please specify",
+      "description": "Free-text description when 'other' method is selected.",
+      "type": "string",
+      "minLength": 2
+    },
+    "ddpv:piiNotes": {
+      "title": "PII Notes",
+      "description": "Short note describing the type of PII present (if any).",
+      "type": "string",
+      "minLength": 2
+    },
+    "ddpv:sensitiveContent": {
+      "title": "Contains Sensitive Content",
+      "description": "Set true if content is restricted/classified or potentially harmful.",
+      "type": "boolean",
+      "default": false
+    },
+    "ddpv:sensitiveNotes": {
+      "title": "Sensitive Content Notes",
+      "description": "Type(s) of sensitive content (e.g., hate speech, military data).",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "ddpv:attribution": {
+      "title": "Attribution Required",
+      "description": "Whether users must credit the source when using the dataset.",
+      "type": "boolean",
+      "default": true
+    },
+    "ddpv:thirdPartyRestrictions": {
+      "title": "Third-Party Restrictions",
+      "description": "Any third-party IP or usage restrictions.",
+      "type": "string"
+    },
+    "ddpv:retentionPolicy": {
+      "title": "Retention Policy",
+      "description": "Retention policy applicable to the dataset.",
+      "type": "string"
+    },
+    "rai:dataCollection": {
+      "title": "Data Collection",
+      "description": "Description of how the data was collected, including method, setting, and sources.",
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 10,
+          "not": {
+            "format": "uri"
+          }
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "rai:dataCollectionType": {
+      "title": "Data Collection Type",
+      "description": "Type or method of data collection.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Web Scraping",
+            "Manual Human Curation",
+            "Crowdsourcing",
+            "Field Recording",
+            "Studio Recording",
+            "Secondary Data Analysis",
+            "Software Collection",
+            "Automated Collection",
+            "Mixed Methods"
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Web Scraping",
+              "Manual Human Curation",
+              "Crowdsourcing",
+              "Field Recording",
+              "Studio Recording",
+              "Secondary Data Analysis",
+              "Software Collection",
+              "Automated Collection",
+              "Mixed Methods"
+            ]
+          }
+        }
+      ]
+    },
+    "rai:dataCollectionRawData": {
+      "title": "Raw Data Source",
+      "description": "Source of the raw data before any processing or transformation.",
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 5,
+          "not": {
+            "format": "uri"
+          }
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "rai:dataCollectionTimeFrameStart": {
+      "title": "Collection Start Date",
+      "description": "Start date/time when data collection began.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "rai:dataCollectionTimeFrameEnd": {
+      "title": "Collection End Date",
+      "description": "End date/time when data collection was completed.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "rai:dataUseCases": {
+      "title": "Data Use Cases",
+      "description": "Intended use cases for the dataset.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 10
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      ]
+    },
+    "rai:dataBiases": {
+      "title": "Data Biases",
+      "description": "Known or potential biases in the dataset (sampling, selection, representation, etc.).",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 10
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      ]
+    },
+    "rai:dataLimitations": {
+      "title": "Data Limitations",
+      "description": "Known limitations, gaps, risks, or caveats that users should be aware of.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 10
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      ]
+    },
+    "rai:dataSocialImpact": {
+      "title": "Social Impact",
+      "description": "Description of the anticipated or potential social impact of using this dataset.",
+      "type": "string",
+      "minLength": 10
+    },
+    "rai:dataReleaseMaintenancePlan": {
+      "title": "Release and Maintenance",
+      "description": "How the dataset will be maintained, updated, and released over time.",
+      "type": "string",
+      "minLength": 10
+    },
+    "rai:dataAnnotationProtocol": {
+      "title": "Annotation Protocol",
+      "description": "Protocol or guidelines used for data annotation/labeling.",
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 10,
+          "not": {
+            "format": "uri"
+          }
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "rai:dataAnnotationPlatform": {
+      "title": "Annotation Platform",
+      "description": "Platform or tool used for annotation.",
+      "type": "string",
+      "minLength": 2
+    },
+    "rai:dataAnnotationAnalysis": {
+      "title": "Annotation Quality Analysis",
+      "description": "Analysis of annotation quality, inter-rater reliability, or quality control measures.",
+      "type": "string",
+      "minLength": 10
+    },
+    "rai:annotationsPerItem": {
+      "title": "Annotations Per Item",
+      "description": "Number of annotations collected per data item.",
+      "oneOf": [
+        {
+          "type": "number",
+          "minimum": 1
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "rai:dataPreprocessingProtocol": {
+      "title": "Preprocessing Protocol",
+      "description": "Steps taken to preprocess, clean, or filter the data.",
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 10,
+          "not": {
+            "format": "uri"
+          }
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 10,
+                "not": {
+                  "format": "uri"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rai:dataManipulationProtocol": {
+      "title": "Data Manipulation Protocol",
+      "description": "Description of how data was transformed, augmented, or manipulated.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 10
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      ]
+    },
+    "dqv:hasQualityMeasurement": {
+      "title": "Quality measurements (dataset-level)",
+      "description": "Aggregate technical/quality metrics for the dataset; each item states what was measured, its value, units, and how it was aggregated (e.g., mean).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "@type",
+          "dqv:isMeasurementOf",
+          "dqv:value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "description": "Fixed type for DQV quality measurements.",
+            "const": "dqv:QualityMeasurement"
+          },
+          "dqv:isMeasurementOf": {
+            "description": "What is being measured (prefer the listed EBUCore/DDPV terms; the pattern allows forward-compatible additions).",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ebucore:signalToNoiseRatio",
+                  "ebucore:loudnessLUFS",
+                  "ebucore:duration",
+                  "ebucore:sampleRate",
+                  "ebucore:sampleSize",
+                  "ebucore:bitrate",
+                  "ddpv:NumFiles"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^(ebucore|ddpv):[A-Za-z][A-Za-z0-9]*$"
+              }
+            ]
+          },
+          "dqv:value": {
+            "description": "Numeric value of the metric. May be negative only for LUFS; all other metrics are non-negative.",
+            "type": "number"
+          },
+          "schema:unitText": {
+            "description": "Unit of the value, e.g., 'dB', 'LUFS', 'seconds', 'Hz', 'bits', 'bps', 'count'.",
+            "type": "string"
+          },
+          "schema:description": {
+            "description": "Free-text clarification of scope/aggregation, e.g., 'Mean SNR across all files (weighted by duration)'.",
+            "type": "string"
+          },
+          "ddpv:aggregationType": {
+            "description": "How the dataset-level value was derived.",
+            "type": "string",
+            "enum": [
+              "mean",
+              "median",
+              "sum",
+              "min",
+              "max",
+              "count",
+              "weighted_mean"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "dqv:isMeasurementOf": {
+                  "const": "ebucore:loudnessLUFS"
+                }
+              },
+              "required": [
+                "dqv:isMeasurementOf"
+              ]
+            },
+            "then": {},
+            "else": {
+              "properties": {
+                "dqv:value": {
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "sc:isReferencedBy": {
+      "title": "Is Referenced By",
+      "description": "External works (web pages, papers) that cite or reference this dataset.",
+      "oneOf": [
+        {
+          "title": "Single URL",
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "title": "List of URLs",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      ]
+    },
+    "dct:subjectOf": {
+      "title": "Subject Of",
+      "description": "External resources that have this dataset as their subject.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "additionalProperties": true
+        }
+      ]
+    },
+    "sc:mentions": {
+      "title": "Mentions",
+      "description": "Mentions of the dataset (text or URLs).",
+      "oneOf": [
+        {
+          "title": "Single Text",
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "title": "Single URL",
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "title": "List of Text/URLs",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "title": "Text",
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "title": "URL",
+                "type": "string",
+                "format": "uri"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "prov:qualifiedGeneration": {
+      "title": "Qualified Generation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prov:activity": {
+          "title": "Activity",
+          "description": "IRI of the generating activity or workflow. Provide a label only as supplemental metadata.",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "object",
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "rdfs:label": {
+                  "type": "string"
+                },
+                "sc:name": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "prov:used": {
+          "title": "Used",
+          "description": "Inputs (data, models, software) referenced by IRI(s).",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "prov:wasDerivedFrom": {
+      "title": "Was Derived From",
+      "description": "Source datasets or resources from which this dataset was derived.",
+      "anyOf": [
+        {
+          "type": "string",
+          "not": {
+            "format": "uri"
+          }
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "additionalProperties": true
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "not": {
+                  "format": "uri"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "object",
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "prov:wasAttributedTo": {
+      "title": "Was Attributed To",
+      "description": "Agent(s) (URI) to whom the dataset is attributed.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      ]
+    },
+    "prov:wasAssociatedWith": {
+      "title": "Was Associated With",
+      "description": "Agent IRI(s) involved. Prefer persistent IRIs; include labels only as supplemental fields.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "rdfs:label": {
+              "type": "string"
+            },
+            "sc:name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "additional": {
+      "title": "Additional fields",
+      "description": "Section for custom metadata; avoid adding custom fields at the top level.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^additional\\..+$": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "distribution": {
+      "title": "Distribution",
+      "description": "Canonical list of FileObjects or FileSets that make up the dataset.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/FileObject"
+          },
+          {
+            "$ref": "#/$defs/FileSet"
+          }
+        ]
+      }
+    },
+    "cr:recordSet": {
+      "title": "Record Set",
+      "description": "Defines the logical table of data records within the dataset. Each RecordSet describes how records are extracted from source files, their structure (fields), and relationships to FileObjects or FileSets. A dataset may include multiple RecordSets for different data modalities or sources.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/RecordSet"
+      }
+    },
+    "cr:fileObject": {
+      "title": "File Objects",
+      "description": "List of individual files in the dataset. Each item describes one physical file and its technical metadata.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/FileObject"
+      }
+    },
+    "cr:fileSet": {
+      "title": "File Sets",
+      "description": "Groups of related files that together form one logical resource (e.g., audio + transcript).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FileSet"
+      }
+    }
+  },
+  "$defs": {
+    "RecordSet": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "cr:field",
+          "cr:records"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "cr:split": {
+            "type": "string",
+            "enum": [
+              "train",
+              "validation",
+              "test",
+              "other"
+            ]
+          },
+          "cr:label": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "cr:records": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "cr:content"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "cr:content": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "not": {
+                        "format": "uri"
+                      }
+                    },
+                    {
+                      "type": "string",
+                      "format": "uri-reference"
+                    }
+                  ]
+                },
+                "sc:encodingFormat": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "cr:key": {
+            "title": "Record Key",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "cr:field": {
+            "title": "Fields",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "cr:name",
+                "cr:dataType",
+                "cr:source"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "cr:name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "cr:dataType": {
+                  "type": "string",
+                  "enum": [
+                    "string",
+                    "integer",
+                    "number",
+                    "boolean",
+                    "array",
+                    "object",
+                    "date",
+                    "date-time",
+                    "uri",
+                    "other"
+                  ]
+                },
+                "cr:source": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "not": {
+                        "format": "uri"
+                      }
+                    },
+                    {
+                      "type": "string",
+                      "format": "uri-reference"
+                    }
+                  ]
+                },
+                "cr:equivalentProperty": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  ]
+                },
+                "ebucore:hasTranscript": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FileObject": {
+      "$comment": "All ebucore:* technical properties are kept flat for easier AI operations.",
+      "type": "object",
+      "required": [
+        "@type",
+        "sc:name",
+        "sc:contentUrl",
+        "sc:encodingFormat",
+        "sc:contentSize",
+        "sc:dateModified"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "@type": {
+          "description": "Fixed type for a single distributed file.",
+          "const": "cr:FileObject"
+        },
+        "@id": {
+          "description": "Local identifier for this file object.",
+          "type": "string",
+          "minLength": 1
+        },
+        "sc:name": {
+          "description": "File name or label (human-readable).",
+          "type": "string",
+          "minLength": 1
+        },
+        "sc:contentUrl": {
+          "description": "Resolvable URL from which the file can be accessed or downloaded.",
+          "type": "string",
+          "format": "uri"
+        },
+        "sc:encodingFormat": {
+          "description": "MIME type of the file (e.g., audio/wav, audio/mp3, application/json, text/plain for transcripts).",
+          "type": "string"
+        },
+        "sc:contentSize": {
+          "description": "File size as number of bytes or a human-readable string (e.g., '42 MB').",
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "sc:sameAs": {
+          "description": "Canonical URI(s) where this file is also referenced.",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          ]
+        },
+        "sc:dateModified": {
+          "description": "Timestamp when this file was last modified.",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        },
+        "cr:sha256": {
+          "description": "SHA-256 checksum string (64 hex characters).",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "ebucore:duration": {
+          "description": "Duration of the media represented by this file.",
+          "anyOf": [
+            {
+              "description": "Duration in seconds.",
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "description": "ISO 8601 duration (e.g., 'PT3M20S').",
+              "type": "string"
+            }
+          ]
+        },
+        "ebucore:hasTranscript": {
+          "title": "Transcript",
+          "description": "Transcript of the audio file.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@type": {
+                  "const": "ebucore:Transcript"
+                },
+                "ebucore:transcriptText": {
+                  "description": "Inline transcript text.",
+                  "type": "string"
+                },
+                "sc:contentUrl": {
+                  "description": "URL to the transcript file.",
+                  "type": "string",
+                  "format": "uri"
+                },
+                "ebucore:transcriptLanguage": {
+                  "description": "Language of the transcript (free text or tag).",
+                  "type": "string"
+                },
+                "ebucore:transcriptFormat": {
+                  "description": "Transcript representation style.",
+                  "type": "string",
+                  "enum": [
+                    "plain",
+                    "word-aligned",
+                    "phonetic",
+                    "time-aligned"
+                  ]
+                }
+              }
+            },
+            {
+              "description": "URL to the transcript file.",
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "description": "Inline transcript text.",
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "ebucore:sampleRate": {
+          "title": "Sample Rate (Hz)",
+          "description": "Sampling frequency in hertz.",
+          "type": "number",
+          "minimum": 1
+        },
+        "ebucore:channels": {
+          "title": "Channels",
+          "description": "Number of audio channels (1=mono, 2=stereo, etc.).",
+          "type": "integer",
+          "minimum": 1
+        },
+        "ebucore:bitrate": {
+          "title": "Bitrate (bps)",
+          "description": "Encoded bitrate in bits per second for compressed audio.",
+          "type": "number",
+          "minimum": 1
+        },
+        "ebucore:integratedLoudness": {
+          "title": "Loudness (LUFS)",
+          "description": "Integrated loudness in LUFS as per EBU R128.",
+          "type": "number"
+        },
+        "ebucore:signalToNoiseRatio": {
+          "title": "Signal-to-Noise Ratio (dB)",
+          "description": "SNR in decibels (higher indicates less noise).",
+          "type": "number"
+        },
+        "ebucore:sampleSize": {
+          "description": "Number of bits per sample (alias of bit depth).",
+          "type": "integer",
+          "minimum": 1
+        },
+        "ebucore:audioCodec": {
+          "description": "Codec used to encode the audio (e.g., 'PCM', 'Opus', 'AAC').",
+          "type": "string",
+          "minLength": 1
+        },
+        "ddpv:equipmentType": {
+          "description": "Recording device or microphone model.",
+          "type": "string",
+          "minLength": 1
+        },
+        "ddpv:participants": {
+          "description": "Participant(s) information in the audio file, including speakers, interviewers, and other contributors.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "olac:role"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "olac:role": {
+                "description": "OLAC participant role.",
+                "type": "string",
+                "enum": [
+                  "speaker",
+                  "interviewer",
+                  "interviewee",
+                  "transcriber",
+                  "annotator",
+                  "recorder",
+                  "consultant",
+                  "depositor",
+                  "sponsor",
+                  "compiler",
+                  "author",
+                  "editor",
+                  "participant"
+                ]
+              },
+              "olac:code": {
+                "description": "Identifier for the participant accross files.",
+                "type": "string",
+                "minLength": 1
+              },
+              "sc:gender": {
+                "description": "Self-reported or annotated gender label.",
+                "type": "string",
+                "minLength": 1
+              },
+              "ddpv:ageRange": {
+                "description": "Age range bucket (e.g., '18–25').",
+                "type": "string",
+                "minLength": 1,
+                "examples": [
+                  "0-12",
+                  "13-17",
+                  "18-25",
+                  "26-35",
+                  "36-50",
+                  "51-65",
+                  "65+"
+                ]
+              },
+              "ddpv:dialectRegion": {
+                "description": "Dialect or region descriptor for the speaker.",
+                "type": "string",
+                "minLength": 1,
+                "examples": [
+                  "Urban",
+                  "Coastal",
+                  "Rural",
+                  "Northern",
+                  "Southern"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "FileSet": {
+      "type": "object",
+      "required": [
+        "@type",
+        "cr:includes",
+        "sc:dateModified"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "@type": {
+          "description": "Fixed type for a grouped set of file objects.",
+          "const": "cr:FileSet"
+        },
+        "cr:containedIn": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FileObject"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/FileObject"
+              }
+            }
+          ]
+        },
+        "cr:includes": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FileObject"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/FileObject"
+              }
+            }
+          ]
+        },
+        "cr:excludes": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FileObject"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/FileObject"
+              }
+            }
+          ]
+        },
+        "sc:encodingFormat": {
+          "description": "Common MIME type shared by files in the set.",
+          "type": "string"
+        },
+        "sc:dateModified": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ddpv:piiScreening": {
+            "const": true
+          }
+        },
+        "required": [
+          "ddpv:piiScreening"
+        ]
+      },
+      "then": {
+        "required": [
+          "ddpv:piiScreeningMethod",
+          "ddpv:piiNotes"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "ddpv:piiScreeningMethod": {
+            "type": "array",
+            "contains": {
+              "const": "other"
+            }
+          }
+        },
+        "required": [
+          "ddpv:piiScreeningMethod"
+        ]
+      },
+      "then": {
+        "required": [
+          "ddpv:piiScreeningMethodOther"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "ddpv:sensitiveContent": {
+            "const": true
+          }
+        },
+        "required": [
+          "ddpv:sensitiveContent"
+        ]
+      },
+      "then": {
+        "required": [
+          "ddpv:sensitiveNotes"
+        ]
+      }
+    }
+  ]
+}
