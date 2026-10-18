@@ -99,12 +99,22 @@ In `js/config.js`, set `applications.mode` to:
 
 Update `legalDocs` with links to your real legal documents.
 
+## Themes
+
+The template comes with three looks. The developer picks one, and visitors see no switch.
+
+- **Classic** is the default: a warm serif design with a dark mode that follows the visitor's system setting.
+- **Continent** is modern and formal: a white page, a dark header and footer, a clean sans-serif, and terracotta, green and ochre accents.
+- **Light** is bright and colorful on white, with a clean sans-serif, strong contrast, rounded cards and colored accents.
+
+Set `theme` in `js/config.js` to `"classic"`, `"continent"` or `"light"`. To make your own, copy one of the `:root[data-palette="..."]` blocks at the end of `css/style.css`, give it a new name, and set that name as the `theme`.
+
 ## Make it yours
 
 | To change | Edit |
 |---|---|
 | Title, tagline, organization, contact | `js/config.js` |
-| Colors | The custom properties at the top of `css/style.css` (a dark mode is included) |
+| Colors | The custom properties at the top of `css/style.css` for the Classic theme (a dark mode is included), and the theme blocks at the end of the file for the others |
 | Typefaces | `--serif` in `css/style.css`. The default is a system serif stack, so nothing is downloaded. |
 | Provider descriptions | `sample-data/providers.json`, or point `providersUrl` elsewhere. The API returns provider names only. |
 | Access, License, API, Metadata and About wording | The files in `pages/` (plain HTML) |

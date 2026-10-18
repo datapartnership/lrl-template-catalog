@@ -14,6 +14,15 @@ window.CATALOG_CONFIG = {
   orgUrl: "https://example.org",
   contactEmail: "data@example.org",
 
+  // ── Theme ────────────────────────────────────────────────
+  // The look of the site, chosen by the developer. Visitors do not see a switch.
+  //   "classic"   a warm serif design, with a dark mode that follows the visitor's system
+  //   "continent" modern and formal: white, a dark header, earth-tone accents and a clean sans-serif
+  //   "light"     bright and colorful on white, with a clean sans-serif and strong contrast
+  // To make your own, copy one of the :root[data-palette="..."] blocks at the end of
+  // css/style.css, give it a new name, and set that name here.
+  theme: "classic",
+
   // ── API ──────────────────────────────────────────────────
   // Base URL of the catalog API, with no trailing slash. Leave empty to run
   // in sample mode, which uses the files in /sample-data and needs no server.
@@ -63,3 +72,6 @@ window.CATALOG_CONFIG = {
   // Static file with provider descriptions (the API only returns provider names).
   providersUrl: "sample-data/providers.json"
 };
+
+// Apply the theme as early as possible so the page does not flash another look first.
+document.documentElement.setAttribute("data-palette", window.CATALOG_CONFIG.theme || "classic");
