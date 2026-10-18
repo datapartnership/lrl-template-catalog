@@ -1,26 +1,122 @@
 [
-  {
-    "id": "harbor-radio",
-    "name": "Harbor Radio Network",
-    "type": "Broadcaster, radio",
-    "description": "A regional radio network broadcasting news, health programs and call-in shows in several languages."
-  },
-  {
-    "id": "daily-courier",
-    "name": "The Daily Courier",
-    "type": "Print and digital media",
-    "description": "A national newspaper with an archive of news, features and opinion pieces."
-  },
-  {
-    "id": "national-statistics",
-    "name": "National Statistics Office",
-    "type": "Government institution",
-    "description": "Produces household surveys and census documentation, including audio from phone and in-person interviews."
-  },
-  {
-    "id": "valley-press",
-    "name": "Valley Press",
-    "type": "Publisher, books",
-    "description": "An independent publisher of literature, textbooks and community histories."
-  }
+ {
+  "id": "nso",
+  "name": "Malawi National Statistical Office",
+  "type": "Government Institution",
+  "description": "The NSO is responsible for collecting, compiling, analyzing, and disseminating official statistics. Its household surveys, including the Integrated Household Survey (IHS) and Demographic and Health Survey (DHS), include audio recordings of interviews conducted in local languages across all districts. The survey work was conducted in coordination with the Living Standards Measurement Study (LSMS), a World Bank program that supports the design, implementation, and use of high-quality household survey data to inform policy and development research."
+ },
+ {
+  "id": "times_group",
+  "name": "The Times Group",
+  "type": "Media Organisation - Print & Digital",
+  "description": "A private media company that produces news articles, opinion pieces, and investigative reporting in both English and Chichewa, offering a rich written corpus of contemporary Malawian language. It publishes The Daily Times and Malawi News."
+ },
+ {
+  "id": "nation_publications",
+  "name": "The Nation Publications",
+  "type": "Media Organisation - Print & Digital",
+  "description": "Publishers of The Nation and Weekend Nation newspapers. A major source of Chichewa and English news, feature writing, and editorial content covering politics, economics, culture, and society in Malawi."
+ },
+ {
+  "id": "radio_islam",
+  "name": "Radio Islam",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A private radio station broadcasting in Chichewa and Yao, with programming that includes news, religious content, community affairs, call-in shows, and cultural programmes."
+ },
+ {
+  "id": "twr",
+  "name": "Transworld Radio",
+  "type": "Media Organisation - Broadcaster",
+  "description": "An international Christian broadcaster with a significant Malawian presence. It produces programming in several Malawian languages, including Chichewa, Tumbuka, and Yao, featuring educational content, health programming, storytelling, and agricultural extension shows."
+ },
+ {
+  "id": "mbc",
+  "name": "Malawi Broadcasting Corporation",
+  "type": "Media Organisation - Broadcaster",
+  "description": "Malawi's national public broadcaster operating MBC Radio 1 and MBC Radio 2. As the state broadcaster, MBC produces content in several Malawian languages, including news bulletins, parliamentary coverage, drama, and educational programming."
+ },
+ {
+  "id": "yoneco_fm",
+  "name": "YONECO FM",
+  "type": "Media Organisation - Broadcaster",
+  "description": "Youth Net and Counselling (YONECO) operates a community radio station focusing on youth empowerment, gender issues, and human rights. Broadcasts primarily in Chichewa and Yao from Zomba district."
+ },
+ {
+  "id": "nyanthepa",
+  "name": "Nyanthepa Community Radio",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A community radio station serving Mzimba and surrounding areas. It broadcasts in various languages, with programming on agriculture, health, education, and local governance."
+ },
+ {
+  "id": "mij",
+  "name": "Malawi Institute of Journalism",
+  "type": "Educational Institution",
+  "description": "A journalism training institution in Malawi. MIJ produces student and faculty media in multiple Malawian languages, including practice broadcasts, written news assignments, and multimedia projects."
+ },
+ {
+  "id": "doi",
+  "name": "Malawi Department of Information",
+  "type": "Government Institution",
+  "description": "The government's official information arm, producing press releases, public service announcements, policy documents, and informational content in Chichewa and English for nationwide distribution."
+ },
+ {
+  "id": "mie",
+  "name": "Malawi Institute of Education",
+  "type": "Government Institution",
+  "description": "Responsible for curriculum development and educational materials. MIE produces textbooks, teaching guides, and supplementary reading materials in Chichewa, Tumbuka, Yao, and other languages used in primary education."
+ },
+ {
+  "id": "montfort",
+  "name": "Montfort Media",
+  "type": "Media Organisation - Print & Digital",
+  "description": "A Catholic media organisation producing print, radio, and multimedia content in Chichewa and other local languages. Its output includes books, pamphlets, audio dramas, educational materials, and community development content."
+ },
+ {
+  "id": "zodiak",
+  "name": "Zodiak Broadcasting Station",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A private media company operating Zodiak Radio and Zodiak Television. It produces news, talk shows, current affairs programmes, and entertainment content in Chichewa and English, providing both broadcast and digital media content."
+ },
+ {
+  "id": "alinafe",
+  "name": "Radio Alinafe",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A Christian community radio station operated by the CCAP Nkhoma Synod and broadcasting from the Lilongwe area. It produces programming in local languages focusing on religious services, community development, education, health, and social issues."
+ },
+ {
+  "id": "kuwale",
+  "name": "Kuwale FM",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A private radio station broadcasting news, talk shows, music, and public affairs programming in English and Chichewa, with a focus on current events and social issues in Malawi."
+ },
+ {
+  "id": "capital_fm",
+  "name": "Capital FM",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A private radio station based in Blantyre. It broadcasts news, talk shows, music, and public affairs programmes in English and Chichewa, including political discussions, interviews, and cultural content. It is one of the oldest private commercial radio stations in Malawi."
+ },
+ {
+  "id": "nkhoma",
+  "name": "Nkhoma Synod Radio",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A Christian radio station operated by the CCAP Nkhoma Synod, broadcasting religious services, educational programmes, health information, and community development content primarily in Chichewa."
+ },
+ {
+  "id": "likuni",
+  "name": "Likuni Publishers",
+  "type": "Media Organisation - Print & Digital",
+  "description": "A publishing house associated with the Catholic Church in Malawi that produces books, educational materials, and religious publications in Chichewa and English, contributing to written language resources and literacy materials."
+ },
+ {
+  "id": "maria",
+  "name": "Radio Maria",
+  "type": "Media Organisation - Broadcaster",
+  "description": "A Christian radio station based in Mangochi and operating in Malawi since 24 August 1999. It produces religious and community-oriented programming, including Bible reading and interpretation in Chichewa"
+ },
+ {
+  "id": "moict",
+  "name": "Ministry of Information and Communications Technology",
+  "type": "Government Institution",
+  "description": "Responsible for public information and government communications, as well as coordinating ICT development and services. The Ministry produces and disseminates government news, publications, photographs, audiovisual content, and other public information through units including the Malawi News Agency and Department of Information."
+ }
 ]

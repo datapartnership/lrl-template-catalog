@@ -29,6 +29,7 @@
   const langNames = (() => { try { return new Intl.DisplayNames(["en"], { type: "language" }); } catch (e) { return null; } })();
   function langName(v) {
     if (!v) return "";
+    if (cfg.languageNames && cfg.languageNames[v]) return cfg.languageNames[v];
     if (langNames && /^[a-z]{2,3}(-[A-Za-z0-9]+)?$/i.test(v)) {
       try { const n = langNames.of(v); if (n && n !== v) return n; } catch (e) { /* not a valid code */ }
     }
@@ -338,9 +339,9 @@
       '  "' + base() + "/api/files/" + (firstFileId ? encodeURIComponent(firstFileId) : "FILE_ID") + '"'
     ];
     if (c.mediaType === "Audio" || c.mediaType === "Video") {
-      lines.push("", "# Download the whole collection as a ZIP",
-        'curl -H "Authorization: Bearer $TOKEN" -o collection.zip \\',
-        '  "' + base() + "/api/collections/" + id + '/bundle"');
+      lines.push("", "# Broadcast media with a paired transcription (needs the additional application step)",
+        'curl -H "Authorization: Bearer $TOKEN" -o file.zip \\',
+        '  "' + base() + "/api/files/" + (firstFileId ? encodeURIComponent(firstFileId) : "FILE_ID") + '/bundle"');
     }
     return lines.join("\n");
   }

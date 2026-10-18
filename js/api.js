@@ -178,13 +178,13 @@
     return { items: items.slice((page - 1) * pageSize, page * pageSize), total: items.length, page, pageSize };
   }
   function sampleFiles(c) {
-    const n = Math.min(c.fileCount || 0, 60);
-    const kind = c.mediaType === "Text" ? "Text" : c.mediaType;
+    const n = c.fileCount ? Math.min(c.fileCount, 60) : 5;   // 5 when the collection's size is unknown
+    const kind = c.mediaType;
     return Array.from({ length: n }, (_, i) => normaliseFile({
       id: c.id + "-f" + (i + 1),
-      name: c.name + " " + String(i + 1).padStart(3, "0") + (kind === "Text" ? ".txt" : ".mp3"),
+      name: c.name + " " + String(i + 1).padStart(3, "0") + (kind === "Text" ? ".txt" : kind === "Video" ? ".mp4" : ".mp3"),
       kind,
-      encodingFormat: kind === "Text" ? "text/plain" : "audio/mpeg",
+      encodingFormat: kind === "Text" ? "text/plain" : kind === "Video" ? "video/mp4" : "audio/mpeg",
       wordCount: kind === "Text" ? 400 + ((i * 137) % 900) : null,
       duration: kind === "Text" ? null : 300 + ((i * 53) % 1500)
     }));

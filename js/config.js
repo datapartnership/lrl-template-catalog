@@ -56,6 +56,10 @@ window.CATALOG_CONFIG = {
     { label: "Commercial subscriber terms", url: "https://example.org/legal/subscriber-terms" }
   ],
 
+  // The API returns language codes. The browser supplies names for most codes.
+  // List any code here whose name you want to set yourself.
+  languageNames: { ny: "Chichewa", seh: "Chisena" },
+
   // Static file with provider descriptions (the API only returns provider names).
   providersUrl: "sample-data/providers.json"
 };

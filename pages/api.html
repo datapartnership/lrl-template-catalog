@@ -20,9 +20,9 @@
   <thead><tr><th>Endpoint</th><th>Purpose</th></tr></thead>
   <tbody>
     <tr><td><code>GET /api/collections/query</code></td><td>A random sample of files, with their metadata, as Croissant JSON-LD</td></tr>
-    <tr><td><code>GET /api/files/{id}</code></td><td>One file. Text is delivered as shuffled paragraphs.</td></tr>
-    <tr><td><code>GET /api/files/{id}/bundle</code></td><td>ZIP of an audio or video file and its transcription</td></tr>
-    <tr><td><code>GET /api/collections/{id}/bundle</code></td><td>ZIP of a whole audio or video collection</td></tr>
+    <tr><td><code>GET /api/files/{id}</code></td><td>One file. Text arrives as shuffled paragraphs and audio as chunked, shuffled snippets.</td></tr>
+    <tr><td><code>GET /api/files/{id}/bundle</code></td><td>ZIP of a broadcast media file and its paired transcription. Needs the additional application step.</td></tr>
+    <tr><td><code>GET /api/collections/{id}/bundle</code></td><td>ZIP of a whole broadcast media collection with its paired transcriptions. Needs the additional application step.</td></tr>
     <tr><td><code>POST /api/auth/login</code></td><td>Sign in with a built-in account and receive a token (only where the deployment uses built-in accounts)</td></tr>
     <tr><td><code>GET /api/auth/me</code></td><td>Check who the token belongs to</td></tr>
   </tbody>
@@ -35,7 +35,7 @@
   <li>Filters are optional and can be combined. They include media type, collection, provider, language, and keyword or theme.</li>
   <li><code>limit</code> sets how many files to return. The default is <strong>30</strong> and the maximum is <strong>100</strong>.</li>
   <li>With no filters, the API returns a random 80% of all files.</li>
-  <li>Each audio or video entry includes its paired transcription.</li>
+  <li>Each audio or video entry notes its paired transcription. The transcription itself needs the additional application step.</li>
 </ul>
 <p>The response is a Croissant 1.0 JSON-LD document with one <code>sc:Dataset</code> entry per collection inside <code>@graph</code>. Each carries:</p>
 <div class="table-wrap"><table>
@@ -78,8 +78,8 @@
   <thead><tr><th>Kind</th><th>What you get</th></tr></thead>
   <tbody>
     <tr><td>Text</td><td>Plain text made of the file's paragraphs in random order. Never the intact document. Text cannot be bundled into a ZIP.</td></tr>
-    <tr><td>Audio and video</td><td>The file as it is, with support for partial (range) requests so players can seek, or a ZIP bundle.</td></tr>
-    <tr><td>Bundles</td><td>A ZIP with each media file and its transcription, a <code>metadata.jsonld</code> file, and a <code>MISSING_FILES.txt</code> note listing anything that could not be included.</td></tr>
+    <tr><td>Audio</td><td>Chunked, shuffled and delivered in snippets, in the same way as text.</td></tr>
+    <tr><td>Broadcast media with transcriptions</td><td>Media files with paired non-verbatim transcriptions need an additional application step, to protect copyright. Once approved, they arrive as a ZIP with each media file and its transcription, a <code>metadata.jsonld</code> file, and a <code>MISSING_FILES.txt</code> note listing anything that could not be included.</td></tr>
   </tbody>
 </table></div>
 
@@ -112,9 +112,9 @@
 <p>Download a text file as shuffled paragraphs:</p>
 <pre><code>curl -H "Authorization: Bearer $TOKEN" \
   "<span data-api-base>https://api.example.org</span>/api/files/FILE_ID"</code></pre>
-<p>Download an audio collection as a ZIP:</p>
-<pre><code>curl -H "Authorization: Bearer $TOKEN" -o collection.zip \
-  "<span data-api-base>https://api.example.org</span>/api/collections/COLLECTION_ID/bundle"</code></pre>
+<p>Download a broadcast media file with its paired transcription (needs the additional application step):</p>
+<pre><code>curl -H "Authorization: Bearer $TOKEN" -o file.zip \
+  "<span data-api-base>https://api.example.org</span>/api/files/FILE_ID/bundle"</code></pre>
 <p>Handle the daily limit from JavaScript:</p>
 <pre><code>const res = await fetch(`${API_BASE}/api/files/${id}`, {
   headers: { Authorization: `Bearer ${token}` }

@@ -6,7 +6,7 @@ It is based on the [lrl-catalog](https://github.com/datapartnership/lrl-catalog)
 
 ## Try it in a minute
 
-The template runs on its own in **sample mode**, with no server or account needed.
+The template runs on its own in **sample mode**, with no server or account needed. The sample data is the catalog's real content: 20 providers and 200 collections of Malawian language audio, video and text.
 
 ```bash
 python3 -m http.server 8000
@@ -108,7 +108,8 @@ Update `legalDocs` with links to your real legal documents.
 | Typefaces | `--serif` in `css/style.css`. The default is a system serif stack, so nothing is downloaded. |
 | Provider descriptions | `sample-data/providers.json`, or point `providersUrl` elsewhere. The API returns provider names only. |
 | Access, License, API, Metadata and About wording | The files in `pages/` (plain HTML) |
-| Sample data | `sample-data/collections.json` (used only in sample mode) |
+| Sample data | `sample-data/collections.json` and `providers.json` (used only in sample mode). They hold the catalog's real content, converted to the API's field names: 20 providers and 200 collections. |
+| Language names | `languageNames` in `js/config.js` |
 
 ## Files
 
@@ -124,9 +125,24 @@ js/app.js           Page behavior
 sample-data/        Sample collections and providers
 ```
 
-## Deploy
+## Publish on GitHub Pages
 
-Copy the folder to any static host. For GitHub Pages, publish from the main branch root. The `.nojekyll` file is already included.
+The template is plain files with no build step and only relative links, so GitHub Pages can serve it as it is. It has been tested from a sub-path such as `/lrl-template-catalog/`, which is how a project site is served.
+
+1. In the repository, open **Settings, then Pages**.
+2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+3. Choose the **main** branch and the **/ (root)** folder, then save.
+4. After a minute or two the site is live. For this organization the address is `https://datapartnership.org/lrl-template-catalog/`.
+
+The `.nojekyll` file is already included, which stops GitHub from processing the files.
+
+When the site is live, also:
+
+- Set `apiBaseUrl` in `js/config.js` and commit it.
+- Add the site's address (for example `https://datapartnership.org`) to the API's allowed origins (CORS).
+- If you use sign-in, add the site's address as a redirect URI in your identity provider.
+
+Any other static host works the same way: copy the folder and serve it.
 
 ## Security notes
 
