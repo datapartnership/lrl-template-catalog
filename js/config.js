@@ -21,7 +21,7 @@ window.CATALOG_CONFIG = {
   //   "light"     bright and colorful on white, with a clean sans-serif and strong contrast
   // To make your own, copy one of the :root[data-palette="..."] blocks at the end of
   // css/style.css, give it a new name, and set that name here.
-  theme: "light",
+  theme: "classic",
 
   // ── API ──────────────────────────────────────────────────
   // Base URL of the catalog API, with no trailing slash. Leave empty to run
