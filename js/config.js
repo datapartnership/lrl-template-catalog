@@ -55,8 +55,8 @@ window.CATALOG_CONFIG = {
   //         POST /api/applications. Commercial subscribers always use their own form.
   applications: {
     mode: "link",
-    researcherFormUrl: "https://example.org/apply/researcher",
-    subscriberFormUrl: "https://example.org/apply/subscriber"
+    researcherFormUrl: "https://forms.gle/6sRN52LLHoknGZZS9",
+    subscriberFormUrl: "https://forms.gle/YACJddsFPJkf8R4z6"
   },
 
   // ── Legal documents (shown on the Access tab) ────────────
