@@ -26,7 +26,7 @@ window.CATALOG_CONFIG = {
   // ── API ──────────────────────────────────────────────────
   // Base URL of the catalog API, with no trailing slash. Leave empty to run
   // in sample mode, which uses the files in /sample-data and needs no server.
-  apiBaseUrl: "",
+  apiBaseUrl: "http://localhost:3000/",
   // Set to true to force sample mode even when apiBaseUrl is set.
   useSampleData: false,
 
